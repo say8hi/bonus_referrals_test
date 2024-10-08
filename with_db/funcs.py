@@ -22,10 +22,13 @@ def check_fast_start_bonus(users: List[User]) -> Dict[int, List[int]]:
             ]
 
             if len(qualified_ref_referals) < 2:
-                continue
+                break
 
             if user.id not in bonus_results:
                 bonus_results[user.id] = []
             bonus_results[user.id].append(ref.id)
+
+        if bonus_results.get(user.id) and len(bonus_results[user.id]) < 2:
+            del bonus_results[user.id]
 
     return bonus_results
